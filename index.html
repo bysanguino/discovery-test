@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Creative Match</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+
+background:#fafafa;
+font-family:Inter,sans-serif;
+color:#222;
+max-width:850px;
+margin:auto;
+padding:60px 25px;
+line-height:1.6;
+
+}
+
+h1{
+
+font-family:"Cormorant Garamond",serif;
+font-size:54px;
+font-weight:600;
+margin-bottom:10px;
+
+}
+
+h2{
+
+font-family:"Cormorant Garamond",serif;
+font-size:34px;
+margin-top:60px;
+
+}
+
+.subtitle{
+
+color:#777;
+margin-bottom:50px;
+
+}
+
+.question{
+
+margin-bottom:55px;
+
+}
+
+label{
+
+display:block;
+padding:12px 0;
+cursor:pointer;
+
+}
+
+input{
+
+margin-right:10px;
+
+}
+
+button{
+
+background:black;
+color:white;
+border:none;
+padding:16px 34px;
+font-size:16px;
+cursor:pointer;
+margin-top:25px;
+
+}
+
+button:hover{
+
+opacity:.9;
+
+}
+
+#result{
+
+display:none;
+margin-top:80px;
+padding:45px;
+background:white;
+border:1px solid #eee;
+
+}
+
+.resultTitle{
+
+font-family:"Cormorant Garamond",serif;
+font-size:42px;
+
+}
+
+.resultText{
+
+margin-top:18px;
+font-size:18px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Discover Your Perfect Fit</h1>
+
+<p class="subtitle">
+Answer five questions and discover the photography experience designed around your goals.
+</p>
+
+<form id="quiz">
+
+<div class="question">
+
+<h2>1. Which best describes you?</h2>
+
+<label><input type="radio" name="q1" value="agency">I'm applying to modeling agencies.</label>
+
+<label><input type="radio" name="q1" value="portfolio">I'm already modeling and want to improve my portfolio.</label>
+
+<label><input type="radio" name="q1" value="creative">I'm an artist or creative professional.</label>
+
+<label><input type="radio" name="q1" value="project">I have a creative project or campaign.</label>
+
+</div>
+
+<div class="question">
+
+<h2>2. What's your main goal?</h2>
+
+<label><input type="radio" name="q2" value="agency">Get signed by an agency.</label>
+
+<label><input type="radio" name="q2" value="portfolio">Build a stronger portfolio.</label>
+
+<label><input type="radio" name="q2" value="identity">Express my personality.</label>
+
+<label><input type="radio" name="q2" value="editorial">Create fashion/editorial images.</label>
+
+<label><input type="radio" name="q2" value="story">Bring a creative concept to life.</label>
+
+</div>
+
+<div class="question">
+
+<h2>3. Where are you in your journey?</h2>
+
+<label><input type="radio" name="q3" value="selfies">I only have selfies or casual photos.</label>
+
+<label><input type="radio" name="q3" value="digitals">I have digitals but no professional portfolio.</label>
+
+<label><input type="radio" name="q3" value="portfolio">I have a portfolio but want stronger editorial work.</label>
+
+<label><input type="radio" name="q3" value="advanced">I have a solid portfolio and want something unique.</label>
+
+</div>
+
+<div class="question">
+
+<h2>4. What kind of experience are you looking for?</h2>
+
+<label><input type="radio" name="q4" value="simple">A simple professional session.</label>
+
+<label><input type="radio" name="q4" value="guidance">Guidance with posing and movement.</label>
+
+<label><input type="radio" name="q4" value="portrait">A personalized portrait experience.</label>
+
+<label><input type="radio" name="q4" value="editorial">A fully creative editorial shoot.</label>
+
+</div>
+
+<div class="question">
+
+<h2>5. What best describes your vision?</h2>
+
+<label><input type="radio" name="q5" value="clean">Clean, natural images.</label>
+
+<label><input type="radio" name="q5" value="versatile">Versatile portfolio images.</label>
+
+<label><input type="radio" name="q5" value="identity">Portraits that feel authentic.</label>
+
+<label><input type="radio" name="q5" value="fashion">Fashion-inspired editorial photography.</label>
+
+<label><input type="radio" name="q5" value="story">A cinematic visual story.</label>
+
+</div>
+
+<button type="button" onclick="calculateResult()">
+Discover My Match
+</button>
+
+</form>
+
+<div id="result">
+
+<div class="resultTitle" id="title"></div>
+
+<div class="resultText" id="description"></div>
+
+</div>
+
+<script>
+
+function calculateResult(){
+
+let scores={
+
+digitals:0,
+agency:0,
+identity:0,
+editorial:0,
+narrative:0
+
+};
+
+//QUESTION 1
+
+switch(document.querySelector('input[name="q1"]:checked')?.value){
+
+case "agency":
+scores.agency+=3;
+scores.digitals+=2;
+break;
+
+case "portfolio":
+scores.editorial+=3;
+scores.agency+=2;
+break;
+
+case "creative":
+scores.identity+=4;
+break;
+
+case "project":
+scores.narrative+=5;
+break;
+
+}
+
+//QUESTION2
+
+switch(document.querySelector('input[name="q2"]:checked')?.value){
+
+case "agency":
+scores.agency+=5;
+break;
+
+case "portfolio":
+scores.agency+=3;
+scores.editorial+=2;
+break;
+
+case "identity":
+scores.identity+=5;
+break;
+
+case "editorial":
+scores.editorial+=5;
+break;
+
+case "story":
+scores.narrative+=5;
+break;
+
+}
+
+//QUESTION3
+
+switch(document.querySelector('input[name="q3"]:checked')?.value){
+
+case "selfies":
+scores.digitals+=5;
+break;
+
+case "digitals":
+scores.agency+=5;
+break;
+
+case "portfolio":
+scores.editorial+=5;
+break;
+
+case "advanced":
+scores.narrative+=5;
+break;
+
+}
+
+//QUESTION4
+
+switch(document.querySelector('input[name="q4"]:checked')?.value){
+
+case "simple":
+scores.digitals+=5;
+break;
+
+case "guidance":
+scores.agency+=4;
+break;
+
+case "portrait":
+scores.identity+=5;
+break;
+
+case "editorial":
+scores.editorial+=3;
+scores.narrative+=4;
+break;
+
+}
+
+//QUESTION5
+
+switch(document.querySelector('input[name="q5"]:checked')?.value){
+
+case "clean":
+scores.digitals+=4;
+break;
+
+case "versatile":
+scores.agency+=4;
+break;
+
+case "identity":
+scores.identity+=4;
+break;
+
+case "fashion":
+scores.editorial+=5;
+break;
+
+case "story":
+scores.narrative+=5;
+break;
+
+}
+
+let winner=Object.keys(scores).reduce((a,b)=>scores[a]>scores[b]?a:b);
+
+const results={
+
+digitals:{
+title:"Digitals",
+text:"Perfect for agency applications and portfolio foundations. Clean, natural images that showcase you exactly as you are."
+},
+
+agency:{
+title:"Agency Test",
+text:"Designed to build a versatile modeling portfolio while helping you develop confidence, posing, and movement."
+},
+
+identity:{
+title:"Identity Portraits",
+text:"A collaborative portrait experience focused on personality, authenticity, and visual storytelling."
+},
+
+editorial:{
+title:"Editorial Session",
+text:"Elevate your portfolio through fashion-inspired imagery, creative direction, and intentional storytelling."
+},
+
+narrative:{
+title:"Fashion Narrative",
+text:"A fully art-directed editorial production built around your story, concept, or campaign."
+}
+
+};
+
+document.getElementById("result").style.display="block";
+
+document.getElementById("title").innerHTML=results[winner].title;
+
+document.getElementById("description").innerHTML=results[winner].text;
+
+window.scrollTo({
+
+top:document.getElementById("result").offsetTop,
+behavior:"smooth"
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
